@@ -1,5 +1,5 @@
 import { ApplicationConfig } from '@loopback/core';
-import { RestApplication, RestServer, RestBindings } from '@loopback/rest';
+import { RestApplication, RestServer, RestBindings, api } from '@loopback/rest';
 import { MySequence } from './sequence';
 
 /* tslint:disable:no-unused-variable */
@@ -7,9 +7,10 @@ import { MySequence } from './sequence';
 import { BootMixin, Booter, Binding } from '@loopback/boot';
 import { Class, Repository, juggler, RepositoryMixin } from '@loopback/repository';
 import { SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG } from 'constants';
+
 /* tslint:enable:no-unused-variable */
 
-export class IxApplication extends BootMixin(
+export class GiverApiApplication extends BootMixin(
   RepositoryMixin(RestApplication))
 {
   sequence(arg0: any): any {
@@ -18,7 +19,9 @@ export class IxApplication extends BootMixin(
   bootOptions: {
     controllers: {
       // Customize ControllerBooter Conventions here
-      dirs: string[]; extensions: string[]; nested: boolean;
+      dirs: string[];
+      extensions: string[];
+      nested: boolean;
     };
   };
   projectRoot: any;
