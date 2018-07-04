@@ -1,7 +1,8 @@
 import { ApplicationConfig } from '@loopback/core';
 import { RestApplication } from '@loopback/rest';
 import { Booter, Binding } from '@loopback/boot';
-declare const GiverApiApplication_base: (new (...args: any[]) => {
+import { Class, Repository, juggler } from '@loopback/repository';
+declare const IxApplication_base: (new (...args: any[]) => {
     [x: string]: any;
     projectRoot: string;
     bootOptions?: {
@@ -23,8 +24,26 @@ declare const GiverApiApplication_base: (new (...args: any[]) => {
     booters(...booterCls: (new (...args: any[]) => Booter)[]): Binding<any>[];
     component(component: new (...args: any[]) => {}): void;
     mountComponentBooters(component: new (...args: any[]) => {}): void;
+}) & (new (...args: any[]) => {
+    [x: string]: any;
+    repository(repo: Class<Repository<any>>): void;
+    getRepository<R extends Repository<any>>(repo: Class<R>): Promise<R>;
+    dataSource(dataSource: juggler.DataSource | Class<juggler.DataSource>, name?: string | undefined): void;
+    component(component: Class<{}>): void;
+    mountComponentRepository(component: Class<{}>): void;
 }) & typeof RestApplication;
-export declare class GiverApiApplication extends GiverApiApplication_base {
+export declare class IxApplication extends IxApplication_base {
+    sequence(arg0: any): any;
+    bootOptions: {
+        controllers: {
+            dirs: string[];
+            extensions: string[];
+            nested: boolean;
+        };
+    };
+    projectRoot: any;
+    dataSource(arg0: any): any;
+    getServer(arg0: any): any;
     constructor(options?: ApplicationConfig);
     start(): Promise<void>;
 }

@@ -5,8 +5,18 @@ const sequence_1 = require("./sequence");
 /* tslint:disable:no-unused-variable */
 // Binding and Booter imports are required to infer types for BootMixin!
 const boot_1 = require("@loopback/boot");
+const repository_1 = require("@loopback/repository");
 /* tslint:enable:no-unused-variable */
-class GiverApiApplication extends boot_1.BootMixin(rest_1.RestApplication) {
+class IxApplication extends boot_1.BootMixin(repository_1.RepositoryMixin(rest_1.RestApplication)) {
+    sequence(arg0) {
+        throw new Error("Method not implemented.");
+    }
+    dataSource(arg0) {
+        throw new Error("Method not implemented.");
+    }
+    getServer(arg0) {
+        throw new Error("Method not implemented.");
+    }
     constructor(options) {
         super(options);
         // Set up the custom sequence
@@ -21,6 +31,17 @@ class GiverApiApplication extends boot_1.BootMixin(rest_1.RestApplication) {
                 nested: true,
             },
         };
+        // find code for an in-memory database
+        let dataSourceConfig = new repository_1.juggler.DataSource({
+            name: "db",
+            connector: "loopback-connector-mysql",
+            host: "127.0.0.1",
+            port: 3306,
+            database: 'giver',
+            user: "root",
+            password: "" // same as on MYSQL
+        });
+        this.dataSource(dataSourceConfig);
     }
     async start() {
         await super.start();
@@ -30,5 +51,5 @@ class GiverApiApplication extends boot_1.BootMixin(rest_1.RestApplication) {
         console.log(`Try http://127.0.0.1:${port}/ping`);
     }
 }
-exports.GiverApiApplication = GiverApiApplication;
+exports.IxApplication = IxApplication;
 //# sourceMappingURL=application.js.map
