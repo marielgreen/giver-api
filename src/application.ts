@@ -1,18 +1,35 @@
-import {ApplicationConfig} from '@loopback/core';
-import {RestApplication, RestServer, RestBindings} from '@loopback/rest';
-import {MySequence} from './sequence';
+import { ApplicationConfig } from '@loopback/core';
+import { RestApplication, RestServer, RestBindings } from '@loopback/rest';
+import { MySequence } from './sequence';
 
 /* tslint:disable:no-unused-variable */
 // Binding and Booter imports are required to infer types for BootMixin!
-import {BootMixin, Booter, Binding} from '@loopback/boot';
+import { BootMixin, Booter, Binding } from '@loopback/boot';
 /* tslint:enable:no-unused-variable */
 
-export class GiverApiApplication extends BootMixin(RestApplication) {
+import {
+  Class,
+  Repository,
+  RepositoryMixin,
+  juggler
+} from '@loopback/repository';
+
+export class GiverApiApplication extends BootMixin
+  (RepositoryMixin(RestApplication)
+  ) {
   constructor(options?: ApplicationConfig) {
     super(options);
 
-    // Set up the custom sequence
-    this.sequence(MySequence);
+    var dataSourceConfig = new juggler.DataSource({
+      name: "db",
+      connector: 'loopback-connector-mysql',
+      host: 'localhost',
+      port: 3306,
+      database: 'giver',
+      user: 'root',
+      password: ''
+    });
+    this.dataSource(dataSourceConfig);
 
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here
