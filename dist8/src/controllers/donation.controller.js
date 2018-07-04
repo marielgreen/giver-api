@@ -13,18 +13,25 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
-const core_1 = require("@loopback/core");
-const loopback_datasource_juggler_1 = require("loopback-datasource-juggler");
-const donation_model_1 = require("../models/donation.model");
-let donationRepository = class donationRepository extends repository_1.DefaultCrudRepository {
-    constructor(datasource) {
-        super(donation_model_1.donation, datasource);
-        this.datasource = datasource;
+const donation_repository_1 = require("../repositories/donation.repository");
+const rest_1 = require("@loopback/rest");
+let DonationController = class DonationController {
+    constructor(donationRepo) {
+        this.donationRepo = donationRepo;
+    }
+    async getAllDonations() {
+        return await this.donationRepo.find();
     }
 };
-donationRepository = __decorate([
-    __param(0, core_1.inject('datasources.db')),
-    __metadata("design:paramtypes", [loopback_datasource_juggler_1.DataSource])
-], donationRepository);
-exports.donationRepository = donationRepository;
-//# sourceMappingURL=donation.repository.js.map
+__decorate([
+    rest_1.get("/donation"),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], DonationController.prototype, "getAllDonations", null);
+DonationController = __decorate([
+    __param(0, repository_1.repository(donation_repository_1.donationRepository.name)),
+    __metadata("design:paramtypes", [donation_repository_1.donationRepository])
+], DonationController);
+exports.DonationController = DonationController;
+//# sourceMappingURL=donation.controller.js.map

@@ -13,18 +13,25 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
-const core_1 = require("@loopback/core");
-const loopback_datasource_juggler_1 = require("loopback-datasource-juggler");
-const donation_model_1 = require("../models/donation.model");
-let donationRepository = class donationRepository extends repository_1.DefaultCrudRepository {
-    constructor(datasource) {
-        super(donation_model_1.donation, datasource);
-        this.datasource = datasource;
+const rest_1 = require("@loopback/rest");
+const order_repository_1 = require("../repositories/order.repository");
+let OrderController = class OrderController {
+    constructor(orderRepo) {
+        this.orderRepo = orderRepo;
+    }
+    async getAllOrders() {
+        return await this.orderRepo.find();
     }
 };
-donationRepository = __decorate([
-    __param(0, core_1.inject('datasources.db')),
-    __metadata("design:paramtypes", [loopback_datasource_juggler_1.DataSource])
-], donationRepository);
-exports.donationRepository = donationRepository;
-//# sourceMappingURL=donation.repository.js.map
+__decorate([
+    rest_1.get("/order"),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], OrderController.prototype, "getAllOrders", null);
+OrderController = __decorate([
+    __param(0, repository_1.repository(order_repository_1.orderRepository.name)),
+    __metadata("design:paramtypes", [order_repository_1.orderRepository])
+], OrderController);
+exports.OrderController = OrderController;
+//# sourceMappingURL=order.controller.js.map

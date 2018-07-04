@@ -8,23 +8,40 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
-const core_1 = require("@loopback/core");
-const loopback_datasource_juggler_1 = require("loopback-datasource-juggler");
-const donation_model_1 = require("../models/donation.model");
-let donationRepository = class donationRepository extends repository_1.DefaultCrudRepository {
-    constructor(datasource) {
-        super(donation_model_1.donation, datasource);
-        this.datasource = datasource;
-    }
+let donation = class donation extends repository_1.Entity {
 };
-donationRepository = __decorate([
-    __param(0, core_1.inject('datasources.db')),
-    __metadata("design:paramtypes", [loopback_datasource_juggler_1.DataSource])
-], donationRepository);
-exports.donationRepository = donationRepository;
-//# sourceMappingURL=donation.repository.js.map
+__decorate([
+    repository_1.property({
+        type: 'number',
+        id: true
+    }),
+    __metadata("design:type", Number)
+], donation.prototype, "iddonation", void 0);
+__decorate([
+    repository_1.property({
+        type: 'number',
+        id: true
+    }),
+    __metadata("design:type", Number)
+], donation.prototype, "stripeid", void 0);
+__decorate([
+    repository_1.property({
+        type: 'number',
+        id: true
+    }),
+    __metadata("design:type", Number)
+], donation.prototype, "iduser", void 0);
+__decorate([
+    repository_1.property({
+        type: 'number',
+        id: true
+    }),
+    __metadata("design:type", Number)
+], donation.prototype, "idshelter", void 0);
+donation = __decorate([
+    repository_1.model()
+], donation);
+exports.donation = donation;
+//# sourceMappingURL=donation.model.js.map
