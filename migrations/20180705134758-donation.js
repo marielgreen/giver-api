@@ -16,34 +16,32 @@ exports.setup = function(options, seedLink) {
 
 exports.up = function(db) {
   return null;
-
-  db.createTable('shelter',{
-    idshelter:{
+  db.createTable('donation',{
+    iddonation:{
       type: 'int',
       primaryKey: true
     },
-    name: {
-      type: 'string',
-      length:45
+    stripeid:{
+      type: 'int'
+
     },
-    address: {
-      type: 'string',
-      length: 200
+    iduser:{
+      type: 'int',
+      foreignKey: true
     },
-    description: {
-      type: 'string',
-      length: 200
-    },
-    amazonid: {
+    idshelter:{
       type: 'int',
       foreignKey: true
     }
+  
+
   }, callback)
 };
 
 exports.down = function(db) {
   return null;
-  db.dropTable('shelter')
+
+  db.dropTable('donation')
 };
 
 exports._meta = {
