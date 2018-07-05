@@ -2,7 +2,7 @@ import { ApplicationConfig } from '@loopback/core';
 import { RestApplication } from '@loopback/rest';
 import { Booter, Binding } from '@loopback/boot';
 import { Class, Repository, juggler } from '@loopback/repository';
-declare const IxApplication_base: (new (...args: any[]) => {
+declare const GiverApiApplication_base: (new (...args: any[]) => {
     [x: string]: any;
     projectRoot: string;
     bootOptions?: {
@@ -32,18 +32,7 @@ declare const IxApplication_base: (new (...args: any[]) => {
     component(component: Class<{}>): void;
     mountComponentRepository(component: Class<{}>): void;
 }) & typeof RestApplication;
-export declare class IxApplication extends IxApplication_base {
-    sequence(arg0: any): any;
-    bootOptions: {
-        controllers: {
-            dirs: string[];
-            extensions: string[];
-            nested: boolean;
-        };
-    };
-    projectRoot: any;
-    dataSource(arg0: any): any;
-    getServer(arg0: any): any;
+export declare class GiverApiApplication extends GiverApiApplication_base {
     constructor(options?: ApplicationConfig);
     start(): Promise<void>;
 }

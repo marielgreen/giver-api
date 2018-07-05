@@ -6,17 +6,10 @@ const sequence_1 = require("./sequence");
 // Binding and Booter imports are required to infer types for BootMixin!
 const boot_1 = require("@loopback/boot");
 const repository_1 = require("@loopback/repository");
+//how does the path know which dirname to use?
 /* tslint:enable:no-unused-variable */
-class IxApplication extends boot_1.BootMixin(repository_1.RepositoryMixin(rest_1.RestApplication)) {
-    sequence(arg0) {
-        throw new Error("Method not implemented.");
-    }
-    dataSource(arg0) {
-        throw new Error("Method not implemented.");
-    }
-    getServer(arg0) {
-        throw new Error("Method not implemented.");
-    }
+// the below is where the error is coming from, but matches the index
+class GiverApiApplication extends boot_1.BootMixin(repository_1.RepositoryMixin(rest_1.RestApplication)) {
     constructor(options) {
         super(options);
         // Set up the custom sequence
@@ -51,5 +44,5 @@ class IxApplication extends boot_1.BootMixin(repository_1.RepositoryMixin(rest_1
         console.log(`Try http://127.0.0.1:${port}/ping`);
     }
 }
-exports.IxApplication = IxApplication;
+exports.GiverApiApplication = GiverApiApplication;
 //# sourceMappingURL=application.js.map

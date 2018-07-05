@@ -6,31 +6,18 @@ import { MySequence } from './sequence';
 // Binding and Booter imports are required to infer types for BootMixin!
 import { BootMixin, Booter, Binding } from '@loopback/boot';
 import { Class, Repository, juggler, RepositoryMixin } from '@loopback/repository';
-import { SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG } from 'constants';
+import { dirname } from 'path';
+
+//how does the path know which dirname to use?
 
 /* tslint:enable:no-unused-variable */
 
+// the below is where the error is coming from, but matches the index
 export class GiverApiApplication extends BootMixin(
   RepositoryMixin(RestApplication))
-{
-  sequence(arg0: any): any {
-    throw new Error("Method not implemented.");
-  }
-  bootOptions: {
-    controllers: {
-      // Customize ControllerBooter Conventions here
-      dirs: string[];
-      extensions: string[];
-      nested: boolean;
-    };
-  };
-  projectRoot: any;
-  dataSource(arg0: any): any {
-    throw new Error("Method not implemented.");
-  }
-  getServer(arg0: any): any {
-    throw new Error("Method not implemented.");
-  }
+{ // what does the below do?
+
+
   constructor(options?: ApplicationConfig) {
     super(options);
 
@@ -38,6 +25,7 @@ export class GiverApiApplication extends BootMixin(
     this.sequence(MySequence);
 
     this.projectRoot = __dirname;
+
     // Customize @loopback/boot Booter Conventions here
     this.bootOptions = {
       controllers: {
