@@ -55,6 +55,10 @@
     "@loopback/repository": "^0.12.1",
     "@loopback/rest": "^0.15.1",
     "@types/jsonwebtoken": "^7.2.8",
+<<<<<<< HEAD
+=======
+    "jsonwebtoken": "^8.3.0",
+>>>>>>> 36980e129ff840ae2083286a722aad72e980f484
     "db-migrate-mysql": "^1.1.10",
     "jsonwebtoken": "^8.3.0",
     "loopback-connector-mysql": "^5.2.0"

@@ -1,15 +1,29 @@
 import { ApplicationConfig } from '@loopback/core';
+
+
 import { RestApplication, RestServer, RestBindings } from '@loopback/rest';
 import { MySequence } from './sequence';
 
 
+
+import { RestApplication, RestServer, RestBindings } from '@loopback/rest';
+
+import { RestApplication, RestServer, RestBindings, api } from '@loopback/rest';
+import { MySequence } from './sequence';
+
 /* tslint:disable:no-unused-variable */
 // Binding and Booter imports are required to infer types for BootMixin!
 import { BootMixin, Booter, Binding } from '@loopback/boot';
+
+
+/* tslint:enable:no-unused-variable */
+
+
 import {
   Class,
   Repository,
   RepositoryMixin,
+
   juggler,
 } from '@loopback/repository';
 /* tslint:enable:no-unused-variable */
@@ -17,14 +31,52 @@ import {
 export class GiverApiApplication extends BootMixin(RepositoryMixin(RestApplication)) {
 
 
+  juggler
+} from '@loopback/repository';
+
+export class GiverApiApplication extends BootMixin
+  (RepositoryMixin(RestApplication)
+  ) {
+
+import { Class, Repository, juggler, RepositoryMixin } from '@loopback/repository';
+import { dirname } from 'path';
+
+//how does the path know which dirname to use?
+
+/* tslint:enable:no-unused-variable */
+
+// the below is where the error is coming from, but matches the index
+export class GiverApiApplication extends BootMixin(
+  RepositoryMixin(RestApplication))
+{ // what does the below do?
+
+
+
+
   constructor(options?: ApplicationConfig) {
     super(options);
 
     this.sequence(MySequence);
 
+  constructor(options?: ApplicationConfig) {
+    super(options);
+
+    var dataSourceConfig = new juggler.DataSource({
+      name: "db",
+      connector: 'loopback-connector-mysql',
+      host: 'localhost',
+      port: 3306,
+      database: 'giver',
+      user: 'root',
+      password: ''
+    });
+    this.dataSource(dataSourceConfig);
+
+
 
 
     this.projectRoot = __dirname;
+
     // Customize @loopback/boot Booter Conventions here
     this.bootOptions = {
       controllers: {
@@ -35,6 +87,7 @@ export class GiverApiApplication extends BootMixin(RepositoryMixin(RestApplicati
       },
     };
 
+
     var dataSourceConfig = new juggler.DataSource({
       name: "db",
       connector: 'loopback-connector-mysql',
@@ -43,6 +96,17 @@ export class GiverApiApplication extends BootMixin(RepositoryMixin(RestApplicati
       database: 'giver',
       user: 'root',
       password: '',
+
+    // find code for an in-memory database
+
+    let dataSourceConfig = new juggler.DataSource({
+      name: "db",
+      connector: "loopback-connector-mysql", // find this in package.JSON
+      host: "127.0.0.1", //same as typing localhost
+      port: 3306,
+      database: 'giver', // same name as Mysql parent of the table name
+      user: "root",
+      password: "" // same as on MYSQL
 
     });
     this.dataSource(dataSourceConfig);
