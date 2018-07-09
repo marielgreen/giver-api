@@ -1,4 +1,14 @@
 {
+    "dev": {
+        "driver": "mysql",
+        "hosst": "localhost",
+        "port": "3306",
+        "user": "root",
+        "database": "giver"
+    }
+
+}
+
   "dev": {
     "driver": "mysql",
     "host": "localhost",
@@ -8,3 +18,4 @@
     "database": "giver"
   }
 }
+
