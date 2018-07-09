@@ -7,6 +7,10 @@ const sequence_1 = require("./sequence");
 const boot_1 = require("@loopback/boot");
 const repository_1 = require("@loopback/repository");
 /* tslint:enable:no-unused-variable */
+
+//how does the path know which dirname to use?
+/* tslint:enable:no-unused-variable */
+// the below is where the error is coming from, but matches the index
 class GiverApiApplication extends boot_1.BootMixin(repository_1.RepositoryMixin(rest_1.RestApplication)) {
     constructor(options) {
         super(options);
@@ -21,6 +25,7 @@ class GiverApiApplication extends boot_1.BootMixin(repository_1.RepositoryMixin(
                 nested: true,
             },
         };
+
         var dataSourceConfig = new repository_1.juggler.DataSource({
             name: "db",
             connector: 'loopback-connector-mysql',
@@ -29,6 +34,16 @@ class GiverApiApplication extends boot_1.BootMixin(repository_1.RepositoryMixin(
             database: 'giver',
             user: 'root',
             password: '',
+
+        // find code for an in-memory database
+        let dataSourceConfig = new repository_1.juggler.DataSource({
+            name: "db",
+            connector: "loopback-connector-mysql",
+            host: "127.0.0.1",
+            port: 3306,
+            database: 'giver',
+            user: "root",
+            password: "" // same as on MYSQL
         });
         this.dataSource(dataSourceConfig);
     }
