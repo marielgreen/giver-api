@@ -4,8 +4,11 @@ const rest_1 = require("@loopback/rest");
 /* tslint:disable:no-unused-variable */
 // Binding and Booter imports are required to infer types for BootMixin!
 const boot_1 = require("@loopback/boot");
+const repository_1 = require("@loopback/repository");
+//how does the path know which dirname to use?
 /* tslint:enable:no-unused-variable */
 const repository_1 = require("@loopback/repository");
+// the below is where the error is coming from, but matches the index
 class GiverApiApplication extends boot_1.BootMixin(repository_1.RepositoryMixin(rest_1.RestApplication)) {
     constructor(options) {
         super(options);
@@ -29,6 +32,17 @@ class GiverApiApplication extends boot_1.BootMixin(repository_1.RepositoryMixin(
                 nested: true,
             },
         };
+        // find code for an in-memory database
+        let dataSourceConfig = new repository_1.juggler.DataSource({
+            name: "db",
+            connector: "loopback-connector-mysql",
+            host: "127.0.0.1",
+            port: 3306,
+            database: 'giver',
+            user: "root",
+            password: "" // same as on MYSQL
+        });
+        this.dataSource(dataSourceConfig);
     }
     async start() {
         await super.start();
