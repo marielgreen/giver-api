@@ -20,11 +20,11 @@ export class ShelterController {
   async getSpecificShelter(
     @param.path.string("idshelter") idshelter: string
   ): Promise<any> {
-    if (idshelter == "A") {
-      return "ABC";
+    if (idshelter == "1") {
+      return "123";
     }
-    if (idshelter =="B") {
-      return "BCD";
+    if (idshelter =="2") {
+      return "234";
     }
     throw new HttpErrors.NotFound("Sorry, id cannot be found");
   }
