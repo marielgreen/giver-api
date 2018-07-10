@@ -13,11 +13,31 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
-const user_1 = require("../repositories/user");
+const user_repository_1 = require("../repositories/user.repository");
+const user_1 = require("../models/user");
 const rest_1 = require("@loopback/rest");
 let UserController = class UserController {
     constructor(userRepo) {
         this.userRepo = userRepo;
+    }
+    async login(email) {
+        return await this.userRepo.find({
+            where: {
+                email
+            }
+        });
+    }
+    async registerUser(users) {
+        if (!users.email || !users.password) {
+            throw new rest_1.HttpErrors.BadRequest('missing data');
+        }
+        let usersExist = !!(await this.userRepo.count({ email: users.email }));
+        if (usersExist) {
+            throw new rest_1.HttpErrors.BadRequest('user already exists');
+        }
+        {
+            return await this.userRepo.create(users);
+        }
     }
     async findUsers() {
         return await this.userRepo.find();
@@ -32,6 +52,20 @@ let UserController = class UserController {
     }
 };
 __decorate([
+    rest_1.get('/login'),
+    __param(0, rest_1.param.query.string("email")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "login", null);
+__decorate([
+    rest_1.post('/register'),
+    __param(0, rest_1.requestBody()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_1.Users]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "registerUser", null);
+__decorate([
     rest_1.get('/users'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -45,8 +79,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "findUsersById", null);
 UserController = __decorate([
-    __param(0, repository_1.repository(user_1.UserRepository)),
-    __metadata("design:paramtypes", [user_1.UserRepository])
+    __param(0, repository_1.repository(user_repository_1.UserRepository)),
+    __metadata("design:paramtypes", [user_repository_1.UserRepository])
 ], UserController);
 exports.UserController = UserController;
 //# sourceMappingURL=user.controller.js.map

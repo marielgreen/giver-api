@@ -16,9 +16,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // import {inject} from '@loopback/context';
 const repository_1 = require("@loopback/repository");
 const shelter_repository_1 = require("../repositories/shelter.repository");
-const rest_1 = require("@loopback/rest");
 const shelter_model_1 = require("../models/shelter.model");
-const rest_2 = require("@loopback/rest");
+const rest_1 = require("@loopback/rest");
 let ShelterController = class ShelterController {
     constructor(shelterRepo) {
         this.shelterRepo = shelterRepo;
@@ -26,14 +25,14 @@ let ShelterController = class ShelterController {
     async getAllShelter() {
         return await this.shelterRepo.find();
     }
-    getSpecificShelter(idshelter) {
+    async getSpecificShelter(idshelter) {
         if (idshelter == "A") {
             return "ABC";
         }
         if (idshelter == "B") {
             return "BCD";
         }
-        throw new rest_2.HttpErrors.NotFound("Sorry, id cannot be found");
+        throw new rest_1.HttpErrors.NotFound("Sorry, id cannot be found");
     }
     async createShelter(shelter) {
         let createShelter = await this.shelterRepo.create(shelter);
@@ -41,20 +40,20 @@ let ShelterController = class ShelterController {
     }
 };
 __decorate([
-    rest_1.get("/shelter"),
+    rest_1.get('/shelter'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ShelterController.prototype, "getAllShelter", null);
 __decorate([
-    rest_1.get("/shelter/{idshelter}"),
-    __param(0, rest_2.param.path.string("idshelter")),
+    rest_1.get('/shelter/{idshelter}'),
+    __param(0, rest_1.param.path.string("idshelter")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Object)
+    __metadata("design:returntype", Promise)
 ], ShelterController.prototype, "getSpecificShelter", null);
 __decorate([
-    rest_1.post("/shelters"),
+    rest_1.post('/shelters'),
     __param(0, rest_1.requestBody()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [shelter_model_1.Shelter]),
