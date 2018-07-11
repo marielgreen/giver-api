@@ -44,12 +44,5 @@ export class ShelterController {
   }
 
 
-  @post('/shelters')
-  async createShelter(
-    @requestBody() shelter: Shelter
-  ): Promise<Shelter> {
 
-    let createShelter = await this.shelterRepo.create(shelter);
-    return createShelter;
-  }
 }
