@@ -1,28 +1,35 @@
 import { ApplicationConfig } from '@loopback/core';
-import { RestApplication, RestServer, RestBindings, api } from '@loopback/rest';
+import { RestApplication, RestServer, RestBindings } from '@loopback/rest';
 import { MySequence } from './sequence';
-
-/* tslint:disable:no-unused-variable */
-// Binding and Booter imports are required to infer types for BootMixin!
 import { BootMixin, Booter, Binding } from '@loopback/boot';
-import { Class, Repository, juggler, RepositoryMixin } from '@loopback/repository';
+import { Class, Repository, RepositoryMixin, juggler, } from '@loopback/repository';
 import { dirname } from 'path';
 
-//how does the path know which dirname to use?
 
-/* tslint:enable:no-unused-variable */
 
-// the below is where the error is coming from, but matches the index
-export class GiverApiApplication extends BootMixin(
-  RepositoryMixin(RestApplication))
-{ // what does the below do?
+export class GiverApiApplication extends BootMixin
+  (RepositoryMixin(RestApplication)
+  ) {
 
 
   constructor(options?: ApplicationConfig) {
     super(options);
 
-    // Set up the custom sequence
     this.sequence(MySequence);
+
+    var dataSourceConfig = new juggler.DataSource({
+      name: "db",
+      connector: 'loopback-connector-mysql',
+      host: 'localhost',
+      port: 3306,
+      database: 'giver',
+      user: 'root',
+      password: ''
+    });
+    this.dataSource(dataSourceConfig);
+
+
+
 
     this.projectRoot = __dirname;
 
@@ -36,18 +43,6 @@ export class GiverApiApplication extends BootMixin(
       },
     };
 
-    // find code for an in-memory database
-
-    let dataSourceConfig = new juggler.DataSource({
-      name: "db",
-      connector: "loopback-connector-mysql", // find this in package.JSON
-      host: "127.0.0.1", //same as typing localhost
-      port: 3306,
-      database: 'giver', // same name as Mysql parent of the table name
-      user: "root",
-      password: "" // same as on MYSQL
-    });
-    this.dataSource(dataSourceConfig);
   }
 
   async start() {

@@ -10,40 +10,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
-let Users = class Users extends repository_1.Entity {
-    getId() {
-        return this.id;
-    }
+let order = class order extends repository_1.Entity {
 };
 __decorate([
     repository_1.property({
-        type: "number",
+        type: 'number',
         id: true
     }),
     __metadata("design:type", Number)
-], Users.prototype, "iduser", void 0);
+], order.prototype, "idorder", void 0);
 __decorate([
     repository_1.property({
-        type: "string"
+        type: 'date',
+        id: true
     }),
-    __metadata("design:type", String)
-], Users.prototype, "name", void 0);
+    __metadata("design:type", Date)
+], order.prototype, "date", void 0);
 __decorate([
     repository_1.property({
-        type: "string"
+        type: 'number',
+        id: true
     }),
-    __metadata("design:type", String)
-], Users.prototype, "email", void 0);
+    __metadata("design:type", Number)
+], order.prototype, "iduser", void 0);
 __decorate([
     repository_1.property({
-        type: "string"
+        type: 'number',
+        id: true
     }),
-    __metadata("design:type", String)
-], Users.prototype, "password", void 0);
-Users = __decorate([
-    repository_1.model({
-        name: "user" //name of table on MySQL
-    })
-], Users);
-exports.Users = Users;
-//# sourceMappingURL=user.js.map
+    __metadata("design:type", Number)
+], order.prototype, "idshelter", void 0);
+__decorate([
+    repository_1.property({
+        type: 'number',
+        id: true
+    }),
+    __metadata("design:type", Number)
+], order.prototype, "amazonid", void 0);
+order = __decorate([
+    repository_1.model()
+], order);
+exports.order = order;
+//# sourceMappingURL=order.model.js.map
