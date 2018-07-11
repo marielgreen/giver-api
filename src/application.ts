@@ -9,13 +9,15 @@ import { dirname } from 'path';
 
 export class GiverApiApplication extends BootMixin
   (RepositoryMixin(RestApplication)
-  ) { 
+  ) {
+
+
 
   constructor(options?: ApplicationConfig) {
     super(options);
    
     this.sequence(MySequence);
-   
+
     var dataSourceConfig = new juggler.DataSource({
       name: "db",
       connector: 'loopback-connector-mysql',
@@ -38,6 +40,7 @@ export class GiverApiApplication extends BootMixin
         nested: true,
       },
     };
+
   }
 
   async start() {
