@@ -1,8 +1,8 @@
 import { ApplicationConfig } from '@loopback/core';
 import { RestApplication, RestServer, RestBindings } from '@loopback/rest';
 import { MySequence } from './sequence';
+import { Class, Repository, juggler, RepositoryMixin} from '@loopback/repository';
 import { BootMixin, Booter, Binding } from '@loopback/boot';
-import { Class, Repository, RepositoryMixin, juggler, } from '@loopback/repository';
 import { dirname } from 'path';
 
 
@@ -12,9 +12,10 @@ export class GiverApiApplication extends BootMixin
   ) {
 
 
+
   constructor(options?: ApplicationConfig) {
     super(options);
-
+   
     this.sequence(MySequence);
 
     var dataSourceConfig = new juggler.DataSource({
@@ -27,9 +28,6 @@ export class GiverApiApplication extends BootMixin
       password: ''
     });
     this.dataSource(dataSourceConfig);
-
-
-
 
     this.projectRoot = __dirname;
 

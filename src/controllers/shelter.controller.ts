@@ -42,5 +42,9 @@ export class ShelterController {
       }
       throw new HttpErrors.NotFound("Sorry, id cannot be found");
     }
+    throw new HttpErrors.NotFound("Sorry, id cannot be found");
   }
+
+
+
 }
