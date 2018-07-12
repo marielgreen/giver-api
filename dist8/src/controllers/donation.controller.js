@@ -15,14 +15,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
 const donation_repository_1 = require("../repositories/donation.repository");
 const rest_1 = require("@loopback/rest");
+const jsonwebtoken_1 = require("jsonwebtoken");
 let DonationController = class DonationController {
     constructor(donationRepo) {
         this.donationRepo = donationRepo;
+    }
+    verifyToken(jwt) {
+        try {
+            let payload = jsonwebtoken_1.verify(jwt, "shh");
+            return payload;
+        }
+        catch (err) {
+            throw new rest_1.HttpErrors.Unauthorized("Invalid Token");
+        }
     }
     async getAllDonations() {
         return await this.donationRepo.find();
     }
 };
+__decorate([
+    rest_1.get("/verify"),
+    __param(0, rest_1.param.query.string("jwt")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], DonationController.prototype, "verifyToken", null);
 __decorate([
     rest_1.get("/donation"),
     __metadata("design:type", Function),

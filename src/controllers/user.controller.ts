@@ -2,8 +2,10 @@
 import { repository } from "@loopback/repository";
 import { UserRepository } from "../repositories/user.repository";
 import { Users } from "../models/user.model";
-import { get, param, HttpErrors, post, requestBody } from "@loopback/rest";
+
+import { get, param, HttpErrors, post, requestBody, put } from "@loopback/rest";
 import { sign, verify } from "jsonwebtoken";
+
 
 export class UserController {
   constructor(
@@ -85,4 +87,28 @@ export class UserController {
 
     return await this.userRepo.findById(id);
   }
+
+  @put("/users/{id}")
+  async updatePassword(
+    @param.path.string('id') id: string,
+    @requestBody() bodyData: any
+  ) {
+    console.log(id);
+    console.log(bodyData);
+
+    if (!bodyData.oldPassword) {
+      throw new HttpErrors.BadRequest("I need an old password");
+    }
+    let user this.userRepo.findById(id);
+
+    bcrypt.compare
+  }
 }
+
+
+// 1. Find user by email using this.userRepo.findById
+    // 2. Do a bcrypt compare on the found user and the bodyData.oldPassword
+    // 3. IF match, then hash the bodyData.newPassword and set it to the
+    //found users variable
+    // 3. foundUser.password = newHashedPassword;
+    // 4. Use await this.userRepo.save(foundUser);
