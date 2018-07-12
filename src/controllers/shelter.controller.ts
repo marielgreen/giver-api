@@ -37,19 +37,14 @@ export class ShelterController {
     }
     if (idshelter == "B") {
       return "BCD";
-    if (idshelter =="2") {
-      return "234";
+      if (idshelter == "2") {
+        return "234";
+      }
+      throw new HttpErrors.NotFound("Sorry, id cannot be found");
     }
     throw new HttpErrors.NotFound("Sorry, id cannot be found");
   }
 
 
-  @post('/shelters')
-  async createShelter(
-    @requestBody() shelter: Shelter
-  ): Promise<Shelter> {
 
-    let createShelter = await this.shelterRepo.create(shelter);
-    return createShelter;
-  }
 }

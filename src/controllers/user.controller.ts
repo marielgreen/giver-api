@@ -2,8 +2,10 @@
 import { repository } from "@loopback/repository";
 import { UserRepository } from "../repositories/user.repository";
 import { Users } from "../models/user.model";
+
 import { get, param, HttpErrors, post, requestBody, put } from "@loopback/rest";
-import { sign, verify } from 'jsonwebtoken';
+import { sign, verify } from "jsonwebtoken";
+
 
 export class UserController {
   constructor(
@@ -54,7 +56,8 @@ export class UserController {
 
 
   @post('/register')
-  async registerUser(@requestBody() users: Users): Promise<Users> {
+  async registerUser(
+    @requestBody() users: Users): Promise<Users> {
     if (!users.email || !users.password) {
       throw new HttpErrors.BadRequest('missing data');
     }
