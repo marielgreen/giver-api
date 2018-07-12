@@ -5,6 +5,7 @@ import { Users } from "../models/user.model";
 
 import { get, param, HttpErrors, post, requestBody, put } from "@loopback/rest";
 import { sign, verify } from "jsonwebtoken";
+let bcrypt = require('bcrypt'); // old style
 
 
 export class UserController {
@@ -53,11 +54,9 @@ export class UserController {
     };
   }
 
-
-
   @post('/register')
   async registerUser(
-    @requestBody() users: Users): Promise<Users> {
+    @requestBody() users: Users) {
     if (!users.email || !users.password) {
       throw new HttpErrors.BadRequest('missing data');
     }
@@ -66,9 +65,32 @@ export class UserController {
     if (usersExist) {
       throw new HttpErrors.BadRequest('user already exists');
     }
-    {
-      return await this.userRepo.create(users);
-    }
+    let userToCreate = new Users();
+    userToCreate.username = users.username;
+    userToCreate.lastname = users.lastname;
+    userToCreate.email = users.email;
+    userToCreate.password = users.password;
+    userToCreate.password = await bcrypt.hash(users.password, 10);
+
+    let createdUser = await this.userRepo.create(userToCreate);
+
+    let jwt = sign(
+      {
+        user: {
+          username: createdUser.username,
+          email: createdUser.email
+        },
+      },
+      'shh',
+      {
+        issuer: 'auth.ix.com',
+        audience: 'ix.com',
+      },
+    );
+
+    return {
+      token: jwt,
+    };
   }
 
   @get('/users')
