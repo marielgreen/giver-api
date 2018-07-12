@@ -15,14 +15,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
 const rest_1 = require("@loopback/rest");
 const order_repository_1 = require("../repositories/order.repository");
+const jsonwebtoken_1 = require("jsonwebtoken");
 let OrderController = class OrderController {
     constructor(orderRepo) {
         this.orderRepo = orderRepo;
+    }
+    verifyToken(jwt) {
+        try {
+            let payload = jsonwebtoken_1.verify(jwt, "shh");
+            return payload;
+        }
+        catch (err) {
+            throw new rest_1.HttpErrors.Unauthorized("Invalid Token");
+        }
     }
     async getAllOrders() {
         return await this.orderRepo.find();
     }
 };
+__decorate([
+    rest_1.get("/verify"),
+    __param(0, rest_1.param.query.string("jwt")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], OrderController.prototype, "verifyToken", null);
 __decorate([
     rest_1.get("/order"),
     __metadata("design:type", Function),

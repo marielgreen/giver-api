@@ -14,18 +14,43 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
 const user_repository_1 = require("../repositories/user.repository");
-const user_1 = require("../models/user");
+const user_model_1 = require("../models/user.model");
 const rest_1 = require("@loopback/rest");
+const jsonwebtoken_1 = require("jsonwebtoken");
 let UserController = class UserController {
     constructor(userRepo) {
         this.userRepo = userRepo;
     }
-    async login(email) {
-        return await this.userRepo.find({
+    verifyToken(jwt) {
+        try {
+            let payload = jsonwebtoken_1.verify(jwt, "shh");
+            return payload;
+        }
+        catch (err) {
+            throw new rest_1.HttpErrors.Unauthorized("Invalid Token");
+        }
+    }
+    async login(user) {
+        let foundUser = await this.userRepo.findOne({
             where: {
-                email
-            }
+                and: [
+                    { email: user.email },
+                    { password: user.password }
+                ],
+            },
         });
+        let jwt = jsonwebtoken_1.sign({
+            user: {
+                id: foundUser.id,
+                email: foundUser.email
+            }
+        }, "shh", {
+            issuer: "auth.ix.com",
+            audience: "ix.com"
+        });
+        return {
+            token: jwt
+        };
     }
     async registerUser(users) {
         if (!users.email || !users.password) {
@@ -50,19 +75,33 @@ let UserController = class UserController {
         }
         return await this.userRepo.findById(id);
     }
+    async updatePassword(email, bodyData) {
+        console.log(email);
+        console.log(bodyData);
+        if (!bodyData.oldPassword) {
+            throw new rest_1.HttpErrors.BadRequest("I need an old password");
+        }
+    }
 };
 __decorate([
-    rest_1.get('/login'),
-    __param(0, rest_1.param.query.string("email")),
+    rest_1.get("/verify"),
+    __param(0, rest_1.param.query.string("jwt")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "verifyToken", null);
+__decorate([
+    rest_1.get('/login'),
+    __param(0, rest_1.param.query.string("user")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_model_1.Users]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "login", null);
 __decorate([
     rest_1.post('/register'),
     __param(0, rest_1.requestBody()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_1.Users]),
+    __metadata("design:paramtypes", [user_model_1.Users]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "registerUser", null);
 __decorate([
@@ -78,6 +117,14 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "findUsersById", null);
+__decorate([
+    rest_1.put("/users/{email}"),
+    __param(0, rest_1.param.path.string('email')),
+    __param(1, rest_1.requestBody()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "updatePassword", null);
 UserController = __decorate([
     __param(0, repository_1.repository(user_repository_1.UserRepository)),
     __metadata("design:paramtypes", [user_repository_1.UserRepository])
