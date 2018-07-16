@@ -10,7 +10,7 @@
     "passwword": "",
     "database": "giver"
   },
-  "qa": {
+  "mariel": {
     "driver": "mysql",
     "host": {
       "ENV": "DATABASE_HOST"

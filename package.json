@@ -32,7 +32,8 @@
     "prestart": "npm run build:current",
     "start": "node .",
     "prepublishOnly": "npm run test",
-    "live": "db-migrate up && node ."
+    "live": "db-migrate up && node .",
+    "mariel": "export NODE_ENV=mariel && export DB_HOST=localhost && export DATABASE_USERNAME=root && export DATABASE_PASSWORD= && export DB_DATABASE=giver && export DB_PORT=3306 && db-migrate up && npm start"
   },
   "repository": {
     "type": "git"
