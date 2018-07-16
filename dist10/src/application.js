@@ -12,9 +12,17 @@ class GiverApiApplication extends boot_1.BootMixin(repository_1.RepositoryMixin(
             }
         });
         this.sequence(sequence_1.MySequence);
+        //var dataSourceConfig = new juggler.DataSource({
+        //name: "db",
+        //connector: 'memory',
         var dataSourceConfig = new repository_1.juggler.DataSource({
             name: "db",
-            connector: 'memory',
+            connector: 'loopback-connector-mysql',
+            host: process.env.DATABASE_HOST,
+            port: 3306,
+            database: process.env.DATABASE_NAME,
+            user: process.env.DATABASE_USERNAME,
+            password: process.env.DATABASE_PASSWORD
         });
         this.dataSource(dataSourceConfig);
         this.projectRoot = __dirname;
