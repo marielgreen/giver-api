@@ -24,7 +24,7 @@ export class UserController {
     }
   }
 
-  @get('/login')
+  @post('/login')
   async login(
     @param.query.string("user") user: Users
   ) {
