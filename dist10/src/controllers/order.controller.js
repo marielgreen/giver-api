@@ -1,5 +1,4 @@
 "use strict";
-// Uncomment these imports to begin using these cool features!
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -13,14 +12,13 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// import {inject} from '@loopback/context';
 const repository_1 = require("@loopback/repository");
-const shelter_repository_1 = require("../repositories/shelter.repository");
 const rest_1 = require("@loopback/rest");
+const order_repository_1 = require("../repositories/order.repository");
 const jsonwebtoken_1 = require("jsonwebtoken");
-let ShelterController = class ShelterController {
-    constructor(shelterRepo) {
-        this.shelterRepo = shelterRepo;
+let OrderController = class OrderController {
+    constructor(orderRepo) {
+        this.orderRepo = orderRepo;
     }
     verifyToken(jwt) {
         try {
@@ -31,21 +29,8 @@ let ShelterController = class ShelterController {
             throw new rest_1.HttpErrors.Unauthorized("Invalid Token");
         }
     }
-    async getAllShelter() {
-        return await this.shelterRepo.find();
-    }
-    async getSpecificShelter(idshelter) {
-        if (idshelter == "1") {
-            return "123";
-        }
-        if (idshelter == "B") {
-            return "BCD";
-            // if (idshelter == "2") {
-            //   return "234";
-            // }
-            // throw new HttpErrors.NotFound("Sorry, id cannot be found");
-        }
-        throw new rest_1.HttpErrors.NotFound("Sorry, id cannot be found");
+    async getAllOrders() {
+        return await this.orderRepo.find();
     }
 };
 __decorate([
@@ -54,23 +39,16 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], ShelterController.prototype, "verifyToken", null);
+], OrderController.prototype, "verifyToken", null);
 __decorate([
-    rest_1.get('/shelter'),
+    rest_1.get("/order"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], ShelterController.prototype, "getAllShelter", null);
-__decorate([
-    rest_1.get('/shelter/{idshelter}'),
-    __param(0, rest_1.param.path.string("idshelter")),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], ShelterController.prototype, "getSpecificShelter", null);
-ShelterController = __decorate([
-    __param(0, repository_1.repository(shelter_repository_1.ShelterRepository.name)),
-    __metadata("design:paramtypes", [shelter_repository_1.ShelterRepository])
-], ShelterController);
-exports.ShelterController = ShelterController;
-//# sourceMappingURL=shelter.controller.js.map
+], OrderController.prototype, "getAllOrders", null);
+OrderController = __decorate([
+    __param(0, repository_1.repository(order_repository_1.orderRepository.name)),
+    __metadata("design:paramtypes", [order_repository_1.orderRepository])
+], OrderController);
+exports.OrderController = OrderController;
+//# sourceMappingURL=order.controller.js.map

@@ -1,7 +1,7 @@
 import { ApplicationConfig } from '@loopback/core';
 import { RestApplication, RestServer, RestBindings } from '@loopback/rest';
 import { MySequence } from './sequence';
-import { Class, Repository, juggler, RepositoryMixin} from '@loopback/repository';
+import { Class, Repository, juggler, RepositoryMixin } from '@loopback/repository';
 import { BootMixin, Booter, Binding } from '@loopback/boot';
 import { dirname } from 'path';
 
@@ -14,18 +14,26 @@ export class GiverApiApplication extends BootMixin
 
 
   constructor(options?: ApplicationConfig) {
-    super(options);
-   
+    super({
+      rest: {
+        port: process.env.PORT || 3000
+      }
+    });
+
     this.sequence(MySequence);
 
     var dataSourceConfig = new juggler.DataSource({
       name: "db",
-      connector: 'loopback-connector-mysql',
-      host: 'localhost',
-      port: 3306,
-      database: 'giver',
-      user: 'root',
-      password: ''
+      connector: 'memory',
+
+      // var dataSourceConfig = new juggler.DataSource({
+      //   name: "db",
+      //   connector: 'loopback-connector-mysql',
+      //   host: 'localhost',
+      //   port: 3306,
+      //   database: 'giver',
+      //   user: 'root',
+      //   password: ''
     });
     this.dataSource(dataSourceConfig);
 

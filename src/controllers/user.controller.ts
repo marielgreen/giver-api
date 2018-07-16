@@ -109,23 +109,34 @@ export class UserController {
 
     return await this.userRepo.findById(id);
   }
-
-  @put("/users/{id}")
-  async updatePassword(
-    @param.path.string('id') id: string,
-    @requestBody() bodyData: any
-  ) {
-    console.log(id);
-    console.log(bodyData);
-
-    if (!bodyData.oldPassword) {
-      throw new HttpErrors.BadRequest("I need an old password");
-    }
-    let user this.userRepo.findById(id);
-
-    bcrypt.compare
-  }
 }
+  //@put("/users/{id}")
+  //async updatePassword(
+   // @param.path.number('id') id: number,
+   // @param.path.string('email') email: string,
+    //@requestBody() bodyData: any
+  //) {
+   // console.log(id);
+   // console.log(bodyData);
+
+  //  if (!bodyData.oldPassword) {
+    //  throw new HttpErrors.BadRequest("I need an old password");
+   // }
+   // return await this.userRepo.findById(id);
+
+   // let foundUser = await this.userRepo.findOne({
+   //   where: {
+      //  and: [
+       //   { email: id.email },
+        //  { password: id.password }
+      //  ],
+     // },
+  //  }) as Users;
+
+    //if (!await bcrypt.compare(authenticationRequest.password, foundUser.password))
+
+  //}
+//}
 
 
 // 1. Find user by email using this.userRepo.findById
@@ -133,4 +144,4 @@ export class UserController {
     // 3. IF match, then hash the bodyData.newPassword and set it to the
     //found users variable
     // 3. foundUser.password = newHashedPassword;
-    // 4. Use await this.userRepo.save(foundUser);
+    // 4. Use await this.userRepo.save(foundUser)
