@@ -13,37 +13,37 @@
   "qa": {
     "driver": "mysql",
     "host": {
-      "ENV": "DB_HOST"
+      "ENV": "DATABASE_HOST"
     },
     "port": {
       "ENV": "DB_PORT"
     },
     "user": {
-      "ENV": "DB_USER"
+      "ENV": "DATABASE_USERNAME"
     },
     "password": {
-      "ENV": "DB_PASSWORD"
+      "ENV": "DATABASE_PASSWORD"
     },
     "database": {
-      "ENV": "DB_DATABASE"
+      "ENV": "DATABASE_NAME"
     }
   },
   "live": {
     "driver": "mysql",
     "host": {
-      "ENV": "DB_HOST"
+      "ENV": "DATABASE_HOST"
     },
     "port": {
       "ENV": "DB_PORT"
     },
     "user": {
-      "ENV": "DB_USER"
+      "ENV": "DATABASE_USERNAME"
     },
     "password": {
-      "ENV": "DB_PASSWORD"
+      "ENV": "DATABASE_PASSWORD"
     },
     "database": {
-      "ENV": "DB_DATABASE"
+      "ENV": "DATABASE_NAME"
     }
   }
 }
