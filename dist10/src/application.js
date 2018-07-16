@@ -19,7 +19,7 @@ class GiverApiApplication extends boot_1.BootMixin(repository_1.RepositoryMixin(
             name: "db",
             connector: 'loopback-connector-mysql',
             host: process.env.DATABASE_HOST,
-            port: 3306,
+            port: process.env.DATABASE_PORT,
             database: process.env.DATABASE_NAME,
             user: process.env.DATABASE_USERNAME,
             password: process.env.DATABASE_PASSWORD
