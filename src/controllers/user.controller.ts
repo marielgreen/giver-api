@@ -28,12 +28,18 @@ export class UserController {
   async login(
     @param.query.string("user") user: Users
   ) {
+    if (!user.email || !user.password) {
+      throw new HttpErrors.Unauthorized('Missing input');
+    }
+    let userExists: boolean = !!(await this.userRepo.count({
+      and: [
+        { email: user.email }
+      ],
+    }));
+
     let foundUser = await this.userRepo.findOne({
       where: {
-        and: [
-          { email: user.email },
-          { password: user.password }
-        ],
+        email: user.email
       },
     }) as Users;
 

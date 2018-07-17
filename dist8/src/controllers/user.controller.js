@@ -32,12 +32,17 @@ let UserController = class UserController {
         }
     }
     async login(user) {
+        if (!user.email || !user.password) {
+            throw new rest_1.HttpErrors.Unauthorized('Missing input');
+        }
+        let userExists = !!(await this.userRepo.count({
+            and: [
+                { email: user.email }
+            ],
+        }));
         let foundUser = await this.userRepo.findOne({
             where: {
-                and: [
-                    { email: user.email },
-                    { password: user.password }
-                ],
+                email: user.email
             },
         });
         let jwt = jsonwebtoken_1.sign({
