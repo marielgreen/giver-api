@@ -12,21 +12,11 @@
   },
   "mariel": {
     "driver": "mysql",
-    "host": {
-      "ENV": "DATABASE_HOST"
-    },
-    "port": {
-      "ENV": "DB_PORT"
-    },
-    "user": {
-      "ENV": "DATABASE_USERNAME"
-    },
-    "password": {
-      "ENV": "DATABASE_PASSWORD"
-    },
-    "database": {
-      "ENV": "DATABASE_NAME"
-    }
+    "host": "localhost",
+    "port": 3306,
+    "user": "root",
+    "password": "",
+    "database": "giver"
   },
   "live": {
     "driver": "mysql",

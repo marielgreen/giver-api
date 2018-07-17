@@ -66,8 +66,7 @@ export class UserController {
       throw new HttpErrors.BadRequest('user already exists');
     }
     let userToCreate = new Users();
-    userToCreate.username = users.username;
-    userToCreate.lastname = users.lastname;
+    userToCreate.name = users.name;
     userToCreate.email = users.email;
     userToCreate.password = users.password;
     userToCreate.password = await bcrypt.hash(users.password, 10);
