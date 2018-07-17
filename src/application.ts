@@ -26,23 +26,23 @@ export class GiverApiApplication extends BootMixin
     //name: "db",
     //connector: 'memory',
 
+    // var dataSourceConfig = new juggler.DataSource({
+    //   name: "db",
+    //   connector: 'loopback-connector-mysql',
+    //   host: 'localhost',
+    //   port: 3306,
+    //   database: 'giver',
+    //   user: 'root',
+    //   password: ''
+
     var dataSourceConfig = new juggler.DataSource({
       name: "db",
       connector: 'loopback-connector-mysql',
-      host: 'localhost',
-      port: 3306,
-      database: 'giver',
-      user: 'root',
-      password: ''
-
-      // var dataSourceConfig = new juggler.DataSource({
-      //   name: "db",
-      //   connector: 'loopback-connector-mysql',
-      //   host: process.env.DATABASE_HOST,
-      //   port: process.env.DB_PORT,
-      //   database: process.env.DATABASE_NAME,
-      //   user: process.env.DATABASE_USERNAME,
-      //   password: process.env.DATABASE_PASSWORD
+      host: process.env.DATABASE_HOST,
+      port: process.env.DB_PORT,
+      database: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD
     });
     this.dataSource(dataSourceConfig);
 
