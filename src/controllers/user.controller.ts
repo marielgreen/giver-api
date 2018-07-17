@@ -26,7 +26,7 @@ export class UserController {
 
   @post('/login')
   async login(
-    @param.query.string("user") user: Users
+    @param.query.string("email") user: Users,
   ) {
     if (!user.email || !user.password) {
       throw new HttpErrors.Unauthorized('Missing input');

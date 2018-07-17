@@ -106,7 +106,7 @@ __decorate([
 ], UserController.prototype, "verifyToken", null);
 __decorate([
     rest_1.post('/login'),
-    __param(0, rest_1.param.query.string("user")),
+    __param(0, rest_1.param.query.string("email")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_model_1.Users]),
     __metadata("design:returntype", Promise)
